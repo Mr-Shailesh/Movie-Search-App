@@ -80,10 +80,9 @@ const MovieListPage: React.FC = () => {
     const handleScroll = () => {
       const scrollPosition =
         window.innerHeight + document.documentElement.scrollTop;
-      const bottomPosition = document.documentElement.offsetHeight;
+      const bottomPosition = document.documentElement.scrollHeight;
 
-      if (scrollPosition === bottomPosition) {
-        // Load more movies when the bottom is reached
+      if (scrollPosition >= bottomPosition - 100) {
         loadMoreMovies();
       }
     };
