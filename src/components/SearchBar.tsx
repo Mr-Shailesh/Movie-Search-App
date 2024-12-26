@@ -20,6 +20,7 @@ const SearchBar: React.FC = () => {
     setQuery(searchQuery);
   }, [searchParams]);
 
+  // This useEffect works for suggestion of movies
   useEffect(() => {
     if (query.trim()) {
       axios

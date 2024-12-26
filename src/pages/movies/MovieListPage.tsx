@@ -58,6 +58,7 @@ const MovieListPage: React.FC = () => {
 
     if (searchQuery.trim() === "") {
       dispatch(fetchPopularMovies(currentPage)).then((action) => {
+        // here we have take the response to set the current page and totalpage value
         if (action.meta.requestStatus === "fulfilled") {
           setTotalPages(action.payload.total_pages);
           setCurrentPage(currentPage + 1);
@@ -66,6 +67,7 @@ const MovieListPage: React.FC = () => {
     } else {
       dispatch(fetchMovies({ query: searchQuery, page: currentPage })).then(
         (action) => {
+          // here we have take the response to set the current page and totalpage value
           if (action.meta.requestStatus === "fulfilled") {
             setTotalPages(action.payload.total_pages);
             setCurrentPage(currentPage + 1);
@@ -75,7 +77,7 @@ const MovieListPage: React.FC = () => {
     }
   }, [isFetching, currentPage, totalPages, dispatch, searchQuery]);
 
-  // Scroll event listener to detect when the user reaches the bottom
+  // Here scroll event listener detect when the user reaches the bottom
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition =
@@ -119,7 +121,7 @@ const MovieListPage: React.FC = () => {
           />
         ))}
       </div>
-      {isFetching && <FetchingLoader />}{" "}
+      {isFetching && <FetchingLoader />}
     </div>
   );
 };
