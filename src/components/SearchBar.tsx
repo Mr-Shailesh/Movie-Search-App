@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchMovies, resetMovies } from "../redux/features/movies/movieSlice";
+import { resetMovies } from "../redux/features/movies/movieSlice";
 import { AppDispatch } from "../redux/store";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
@@ -9,6 +9,7 @@ import "../styles/SearchBar.css";
 const SearchBar: React.FC = () => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [isFocused, setIsFocused] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -43,21 +44,31 @@ const SearchBar: React.FC = () => {
     }
   }, [query, currentPage]);
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && query.trim()) {
-      dispatch(fetchMovies({ query: query, page: currentPage }));
+  const handleSearchAction = (query: string) => {
+    if (query.trim()) {
       navigate(`?search=${query}`);
       dispatch(resetMovies());
       setSuggestions([]);
     }
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearchAction(query);
+    }
+  };
+
   const handleSuggestionClick = (suggestion: string) => {
     setQuery(suggestion);
-    dispatch(fetchMovies({ query: suggestion, page: currentPage }));
-    navigate(`?search=${suggestion}`);
-    dispatch(resetMovies());
-    setSuggestions([]);
+    handleSearchAction(suggestion);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => setIsFocused(false), 200);
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
   };
 
   return (
@@ -68,9 +79,11 @@ const SearchBar: React.FC = () => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyPress}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         placeholder="Search for movies..."
       />
-      {suggestions.length > 0 && (
+      {isFocused && suggestions.length > 0 && (
         <ul className="suggestions-list list-group position-absolute w-100">
           {suggestions.map((suggestion, index) => (
             <li
