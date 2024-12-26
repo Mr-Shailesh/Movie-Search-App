@@ -1,0 +1,38 @@
+.fixed-height-card {
+    height: 400px; 
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .fixed-height-img {
+    height: 200px; 
+    object-fit: cover; 
+  }
+  
+  .text-truncate-4 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; 
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-10px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .card-body {
+    transition: background-color 0.3s ease;
+  }
+  
+  .card-hover:hover .card-body {
+    background-color: rgba(0, 0, 0, 0.05); 
+  }
+  
+  
