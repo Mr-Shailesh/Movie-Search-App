@@ -52,6 +52,7 @@ const MovieListPage: React.FC = () => {
 
   const headerTitle = searchQuery.trim() ? "Search Results" : "Popular Movies";
 
+  // Load more movies for infinite scroll
   const loadMoreMovies = useCallback(() => {
     if (isFetching || currentPage >= totalPages) return;
     setIsFetching(true);
