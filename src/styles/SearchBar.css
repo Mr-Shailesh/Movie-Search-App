@@ -1,0 +1,45 @@
+.search-bar-container {
+    position: relative;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .suggestions-list {
+    z-index: 100;
+    max-height: 300px; 
+    overflow-y: auto; 
+    border-radius: 0.375rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+  }
+  
+.suggestions-list::-webkit-scrollbar {
+    width: 8px; 
+    height: 8px;
+  }
+  
+  .suggestions-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  .suggestions-list::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; 
+  }
+  
+  .suggestions-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  .suggestion-item {
+    cursor: pointer;
+    padding: 10px;
+    transition: background-color 0.2s ease; 
+  }
+  
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+  
